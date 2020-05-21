@@ -4,17 +4,17 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
 class StorageHandler {
-  Future<String> get _localPath async {
+  static Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
     return directory.path;
   }
 
-  Future<File> get _localFile async {
+  static Future<File> get _localFile async {
     final path = await _localPath;
     return File('$path/storage.json');
   }
 
-  Future<String> readStorage() async {
+  static Future<String> readStorage() async {
     try {
       final file = await _localFile;
       return await file.readAsString();
@@ -23,12 +23,12 @@ class StorageHandler {
     }
   }
 
-  Future<File> writeStorage(String content) async {
+  static Future<File> writeStorage(String content) async {
     final file = await _localFile;
-    return file.writeAsString(content);
+    return file.writeAsString(content, mode: FileMode.write);
   }
 
-  Future<String> loadBaseSource() async {
-  return await rootBundle.loadString('assets/config.json');
-}
+  static Future<String> loadBaseSource() async {
+    return await rootBundle.loadString('assets/base_source.json');
+  }
 }
