@@ -1,5 +1,6 @@
 import 'package:covid_app/Utility/dimens.dart';
 import 'package:covid_app/Utility/number_fromatting.dart';
+import 'package:covid_app/stat_row.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -89,29 +90,17 @@ class Country {
                   "Data fetched from $lastUpdate",
                 ),
               ),
-              Text(
-                "Total confirmed: ${totalConfirmed.format()}",
-              ),
-              Text(
-                "Total recovered: ${totalRecovered.format()}",
-              ),
+              StatRow("Total confirmed:", totalConfirmed.format()),
+              StatRow("Total recovered:", totalRecovered.format()),
               Container(
                 padding: EdgeInsets.only(
                   bottom: Dimens.smallDistance,
                 ),
-                child: Text(
-                  "Total deaths: ${totalDeaths.format()}",
-                ),
+                child: StatRow("Total deaths:", totalDeaths.format()),
               ),
-              Text(
-                "New confirmed: ${newConfirmed.format()}",
-              ),
-              Text(
-                "New recovered: ${newRecovered.format()}",
-              ),
-              Text(
-                "New deaths: ${newDeaths.format()}",
-              ),
+              StatRow("New confirmed:", newConfirmed.format()),
+              StatRow("New recovered:", newRecovered.format()),
+              StatRow("New deaths:", newDeaths.format()),
             ],
           ),
         ),

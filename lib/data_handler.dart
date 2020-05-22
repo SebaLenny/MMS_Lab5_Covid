@@ -6,8 +6,7 @@ import 'package:covid_app/storage_handler.dart';
 
 class DataHandler {
   static Future<CovidStatistics> provideNewestAvaliableData() async {
-    // String data = await RequestHandler.fetchFreshData();
-    String data = ""; // TODO: For final release use API
+    String data = await RequestHandler.fetchFreshData();
     if (data.isNotEmpty) {
       await StorageHandler.writeStorage(data);
       return CovidStatistics.fromJson(json.decode(data));

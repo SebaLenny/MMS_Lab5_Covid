@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:covid_app/Utility/number_fromatting.dart';
 
+import '../stat_row.dart';
+
 class Global {
   int newConfirmed;
   int totalConfirmed;
@@ -63,47 +65,22 @@ class Global {
                   ),
                 ),
               ),
-              Text(
-                "Total confirmed: ${totalConfirmed.format()}",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              Text(
-                "Total recovered: ${totalRecovered.format()}",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
+              StatRow("Total confirmed:", totalConfirmed.format(),
+                  color: Colors.white),
+              StatRow("Total recovered:", totalRecovered.format(),
+                  color: Colors.white),
               Container(
                 padding: EdgeInsets.only(
                   bottom: Dimens.smallDistance,
                 ),
-                child: Text(
-                  "Total deaths: ${totalRecovered.format()}",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
+                child: StatRow("Total deaths:", totalDeaths.format(),
+                    color: Colors.white),
               ),
-              Text(
-                "New confirmed: ${newConfirmed.format()}",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              Text(
-                "New recovered: ${newRecovered.format()}",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              Text(
-                "New deaths: ${newDeaths.format()}",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
+              StatRow("New confirmed:", newConfirmed.format(),
+                  color: Colors.white),
+              StatRow("New recovered:", newRecovered.format(),
+                  color: Colors.white),
+              StatRow("New deaths:", newDeaths.format(), color: Colors.white),
             ],
           ),
         ),
