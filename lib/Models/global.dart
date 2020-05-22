@@ -1,3 +1,8 @@
+import 'package:covid_app/Utility/dimens.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:covid_app/Utility/number_fromatting.dart';
+
 class Global {
   int newConfirmed;
   int totalConfirmed;
@@ -32,5 +37,77 @@ class Global {
     data['NewRecovered'] = this.newRecovered;
     data['TotalRecovered'] = this.totalRecovered;
     return data;
+  }
+
+  Widget getCard() {
+    return SizedBox(
+      width: double.infinity,
+      child: Card(
+        color: Colors.blue,
+        child: Container(
+          padding: EdgeInsets.all(
+            Dimens.standardDistance,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(
+                  bottom: Dimens.smallDistance,
+                ),
+                child: Text(
+                  "General information",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: Dimens.fontSecodnary,
+                  ),
+                ),
+              ),
+              Text(
+                "Total confirmed: ${totalConfirmed.format()}",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              Text(
+                "Total recovered: ${totalRecovered.format()}",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(
+                  bottom: Dimens.smallDistance,
+                ),
+                child: Text(
+                  "Total deaths: ${totalRecovered.format()}",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Text(
+                "New confirmed: ${newConfirmed.format()}",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              Text(
+                "New recovered: ${newRecovered.format()}",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              Text(
+                "New deaths: ${newDeaths.format()}",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

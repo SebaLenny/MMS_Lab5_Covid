@@ -1,3 +1,8 @@
+import 'package:covid_app/Utility/dimens.dart';
+import 'package:covid_app/Utility/number_fromatting.dart';
+import 'package:flutter/material.dart';
+import 'package:timeago/timeago.dart' as timeago;
+
 class Country {
   String country;
   String countryCode;
@@ -9,6 +14,10 @@ class Country {
   int newRecovered;
   int totalRecovered;
   DateTime date;
+
+  String get lastUpdate {
+    return timeago.format(date);
+  }
 
   Country(
       {this.country,
@@ -48,5 +57,65 @@ class Country {
     data['TotalRecovered'] = this.totalRecovered;
     data['Date'] = this.date.toString();
     return data;
+  }
+
+  Widget getCard() {
+    return SizedBox(
+      width: double.infinity,
+      child: Card(
+        child: Container(
+          padding: EdgeInsets.all(
+            Dimens.standardDistance,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(
+                  bottom: Dimens.smallDistance,
+                ),
+                child: Text(
+                  country,
+                  style: TextStyle(
+                    fontSize: Dimens.fontSecodnary,
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(
+                  bottom: Dimens.smallDistance,
+                ),
+                child: Text(
+                  "Data fetched from $lastUpdate",
+                ),
+              ),
+              Text(
+                "Total confirmed: ${totalConfirmed.format()}",
+              ),
+              Text(
+                "Total recovered: ${totalRecovered.format()}",
+              ),
+              Container(
+                padding: EdgeInsets.only(
+                  bottom: Dimens.smallDistance,
+                ),
+                child: Text(
+                  "Total deaths: ${totalDeaths.format()}",
+                ),
+              ),
+              Text(
+                "New confirmed: ${newConfirmed.format()}",
+              ),
+              Text(
+                "New recovered: ${newRecovered.format()}",
+              ),
+              Text(
+                "New deaths: ${newDeaths.format()}",
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

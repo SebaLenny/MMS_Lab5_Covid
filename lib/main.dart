@@ -1,4 +1,7 @@
+import 'package:covid_app/Models/covid_statistics.dart';
+import 'package:covid_app/Utility/dimens.dart';
 import 'package:covid_app/Utility/strings.dart';
+import 'package:covid_app/data_handler.dart';
 import 'package:flutter/material.dart';
 
 import 'menu_drawer.dart';
@@ -28,6 +31,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Future<CovidStatistics> futureCovidStatistics;
+  TextEditingController editingController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    futureCovidStatistics = DataHandler.provideNewestAvaliableData();
+  }
+
+  void refresh() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +51,22 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       drawer: MenuDrawer(),
-      body: Center(child: null),
+      body: SingleChildScrollView(
+          child: FutureBuilder<CovidStatistics>(
+        future: futureCovidStatistics,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Column(
+              children: <Widget>[
+                snapshot.data.getWidget(editingController, refresh)
+              ],
+            );
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
+          return CircularProgressIndicator();
+        },
+      )),
     );
   }
 }
